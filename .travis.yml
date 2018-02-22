@@ -22,7 +22,7 @@ deploy:
   distributions: sdist bdist_wheel
   user: jayg
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: fZwn7Wo/AycYSpr/1yyvsE/QhoWTTmApzBzZYdbuI/6G80IG2O8UvKHdbR6RGO6AikPNRIn0A863PfoBb27Je8b06Mxi81Z12eMLzS9PeMgavxkk8SSCghF/NvjvCtvD2tqvIsgZfJtlZsU5T3NhapB9lLU43nQBQCnOqloqk7CofsoZvF60Lv/DRV2Nu5YQu1jVMc348hkm3TLZlygH3AFhYTboKPL0O2m9lMq+L7thXOWJQZKAe30Nfl2WQLGiSweb2f7g7Q2oyGqScZuqI1Hc4TgK7NKKPFAZbol7Uy3RQi5v8FjY42BAp8GxR/+O8HAwhRBP9QiR7Faz4UFmVZSGPYgrd2y+EFsrwtW/qzIMawpCdjmkv4eUtV28DvIIvJfJULUNvDSzmcOXwqZavEJlI7SJ/CAjrve5iX+x06ef+rdDpvzTBvAhxoqbOAkG9L4LN0j6LplPK9OZSUMj+A+lOgxkK+Da0ir0kziG3q9HpmspbmYmqZB9aa2p8qGt5/vVkHbbhWBdcEv0Chor6xaFX6rilTHMiI0N2oVGe/caqvtxCbtwtovs49faH1NKBSEyMdsW5Iwn8NO+EH0/9xwaVSOcR/zHIDb9XZa22JVDwZfXcKVHdKAo/6nLtyZ2C3kUhVeOpuvqoQr4yIoTUszqxbkuCmPHGM3ReNx323U=
   on:
     tags: true
     repo: release-depot/koji_wrapper
