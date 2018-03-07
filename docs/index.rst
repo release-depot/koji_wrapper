@@ -1,5 +1,5 @@
 Welcome to koji_wrapper's documentation!
-======================================
+========================================
 
 .. toctree::
    :maxdepth: 2

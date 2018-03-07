@@ -11,7 +11,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ ]
+requirements = []
 
 setup_requirements = ['pytest-runner', ]
 
@@ -32,7 +32,8 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    description="Helper library to work with areas of koji that are not well supported in that project's api.",
+    description=("Helper library to work with areas of koji that are "
+                 "not well supported in that project's api."),
     install_requires=requirements,
     license="MIT license",
     long_description=readme + '\n\n' + history,

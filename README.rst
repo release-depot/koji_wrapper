@@ -1,5 +1,5 @@
 ============
-koji_wrapper
+Koji Wrapper
 ============
 
 
@@ -22,7 +22,6 @@ koji_wrapper
 
 Helper library to work with areas of koji that are not well supported in that project's api.
 
-
 * Free software: MIT license
 * Documentation: https://koji-wrapper.readthedocs.io.
 
@@ -31,6 +30,34 @@ Features
 --------
 
 * TODO
+
+Development
+-----------
+
+There are several dependencies needed to build and work on koji_wrapper.  Using
+your distribution's package manager, install these system packages::
+
+  openssl-devel python3-devel rpm-devel krb5-devel
+
+koji_wrapper uses the upcoming standard of Pipfiles via pipenv.  This is integrated
+into our Makefile and once you have the above dependencies, you can simply run::
+
+  make
+
+This will install our dev environment for the package via pipenv.  It is installed
+with --user, so it does not affect your site-packages.  Pipenv create a unique virtualenv
+for us, which you can activate via::
+
+  pipenv shell
+
+See the `pipenv documentation <https://docs.pipenv.org/>`_ for more detail.
+
+Contributions
+*************
+
+All new code should include tests that excercise the code and prove that it
+works, or fixes the bug you are trying to fix.  Any Pull Request without tests
+will not be accepted.
 
 Credits
 -------
