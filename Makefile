@@ -24,10 +24,10 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
-BROWSER := python -c "$$BROWSER_PYSCRIPT"
+BROWSER := @pipenv run python -c "$$BROWSER_PYSCRIPT"
 
 help:
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@pipenv run python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
@@ -50,39 +50,43 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 
 lint: ## check style with flake8
-	flake8 koji_wrapper tests
+	pipenv run flake8 koji_wrapper tests
 
 test: ## run tests quickly with the default Python
-	py.test
+	pipenv run py.test tests
 
 test-all: ## run tests on every Python version with tox
-	tox
+	pipenv run tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source koji_wrapper -m pytest
-	coverage report -m
-	coverage html
+	pipenv run coverage run --source koji_wrapper -m pytest
+	pipenv run coverage report -m
+	pipenv run coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/koji_wrapper.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ koji_wrapper
+	pipenv run sphinx-apidoc -o docs/ koji_wrapper
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+	pipenv run watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: clean ## package and upload a release
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	pipenv run python setup.py sdist upload
+	pipenv run python setup.py bdist_wheel upload
 
 dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
+	pipenv run python setup.py sdist
+	pipenv run python setup.py bdist_wheel
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	pipenv run python setup.py install
+
+init: ## install the dev environment
+	pip3 install --user pipenv
+	pipenv install '-e .' --dev

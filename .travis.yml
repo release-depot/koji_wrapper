@@ -2,16 +2,16 @@
 
 language: python
 python:
-  - 3.6
-  - 3.5
-  - 3.4
-  - 2.7
+  - "3.6"
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
+install:
+  - pip install pipenv
+  - pipenv install --dev
+  - pipenv run python setup.py install
 
 # Command to run tests, e.g. python setup.py test
-script: tox
+script: pipenv run tox
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
