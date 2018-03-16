@@ -52,10 +52,10 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	pipenv run flake8 koji_wrapper tests
 
-test: ## run tests quickly with the default Python
+test: dev ## run tests quickly with the default Python
 	pipenv run py.test tests
 
-test-all: ## run tests on every Python version with tox
+test-all: dev ## run tests on every Python version with tox
 	pipenv run tox
 
 coverage: ## check code coverage quickly with the default Python
@@ -84,9 +84,11 @@ dist: clean ## builds source and wheel package
 	pipenv run python setup.py bdist_wheel
 	ls -l dist
 
-install: clean ## install the package to the active Python's site-packages
-	pipenv run python setup.py install
-
 init: ## install the dev environment
 	pip3 install --user pipenv
+
+install: init ## install the package to the active Python's site-packages
+	pipenv run python setup.py install
+
+dev: init ## set up a development environment
 	pipenv install '-e .' --dev
