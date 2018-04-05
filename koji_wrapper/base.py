@@ -53,3 +53,17 @@ class KojiWrapperBase(object):
         else:
             self.__session = koji.ClientSession(self.url)
 
+    def build(self, nvr):
+        """
+        :param nvr: nvr of the desired build
+        :returns: build object from koji
+        """
+        return self.session.getBuild(nvr)
+
+    def archives(self, **kwargs):
+        """
+        :param **kwargs: Any valid named parameter accepted by the koji client's
+            listArchives method
+        :returns: list of archives from koji
+        """
+        return self.session.listArchives(**kwargs)
