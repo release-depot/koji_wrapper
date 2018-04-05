@@ -9,24 +9,9 @@ from koji_wrapper.base import KojiWrapperBase
 
 class KojiWrapper(KojiWrapperBase):
 
-    def build(self, nvr):
-        """
-        :param nvr: of the desired build
-        :returns: build object from koji
-        """
-        return self.session.getBuild(nvr)
-
-    def archives(self, **kwargs):
-        """
-        :param **kwargs: Any valid named parameter accepted by the koji client's
-            listArchives method
-        :returns: list of archives from koji
-        """
-        return self.session.listArchives(**kwargs)
-
     def file_types(self, nvr, types=['image']):
         """
-        :param nvr: of the desired build:
+        :param nvr: nvr of the desired build
         :param types: list of koji archive types.  This is currently any of:
             'maven', 'win', or 'image'
         :returns: list of file types of given build
