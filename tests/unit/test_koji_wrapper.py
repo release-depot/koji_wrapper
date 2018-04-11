@@ -84,9 +84,25 @@ def test_returns_file_types(a_koji_wrapper, sample_archives):
     a_koji_wrapper.session.listArchives = \
         MagicMock(return_value=sample_archives)
     a_koji_wrapper.session.getBuild = MagicMock(return_value={'id':'12345'})
-    ft = a_koji_wrapper.file_types('myproject-9.0-20190326.1.el7ost')
+    ft = a_koji_wrapper.file_types('myproject-9.0-20190326.1.el7')
     assert a_koji_wrapper.session.getBuild.called
     assert a_koji_wrapper.session.listArchives.called
     assert isinstance(ft,list)
     assert 'image' in ft
+
+def test_returns_srpm_url(a_koji_wrapper, sample_build, sample_rpm_list):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call the srpm_url method with a valid nvr,
+    THEN we get a string representation of the srpm url for the given nvr
+    """
+    a_koji_wrapper.build = \
+        MagicMock(return_value=sample_build)
+    a_koji_wrapper.rpms = MagicMock(return_value=sample_rpm_list)
+    a_koji_wrapper._build_srpm_url = \
+        MagicMock(return_value='http://my.kojiserver/rpms/something.src.rpm')
+    srpm_url = a_koji_wrapper.srpm_url('myproject-9.0-20190326.1.el7')
+    assert a_koji_wrapper.session.getBuild.called
+    assert a_koji_wrapper.session.listRPMs.called
+    assert isinstance(srpm_url,str)
 
