@@ -53,17 +53,34 @@ class KojiWrapperBase(object):
         else:
             self.__session = koji.ClientSession(self.url)
 
+    def archives(self, **kwargs):
+        """
+        :param **kwargs: Any valid named parameter accepted by the koji client's
+            listArchives method:
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3950
+        :returns: list of archives from koji
+        """
+        return self.session.listArchives(**kwargs)
+
     def build(self, nvr):
         """
+        This method wraps the koji client method getBuild:
+        https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3477
+
         :param nvr: nvr of the desired build
         :returns: build object from koji
         """
         return self.session.getBuild(nvr)
 
-    def archives(self, **kwargs):
+    def rpms(self, **kwargs):
         """
         :param **kwargs: Any valid named parameter accepted by the koji client's
-            listArchives method
-        :returns: list of archives from koji
+            listArchives method:
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3723
+        :returns: list of matching rpms from koji
         """
-        return self.session.listArchives(**kwargs)
+        # TODO: make this always returns a list, so the client can rely on it
+        return self.session.listRPMs(**kwargs)
+
+    def _handle_exception():
+        pass

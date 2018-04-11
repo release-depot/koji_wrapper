@@ -18,7 +18,7 @@ def sample_build():
             'completion_ts': 1519943592.64899,
             'owner_id': 1527,
             'owner_name': 'someone',
-            'nvr': 'my-project-9.0-20190301.1.el7ost',
+            'nvr': 'my-project-9.0-20190301.1.el7',
             'start_time': '2018-03-01 22:07:52.627945',
             'creation_event_id': 18416869,
             'start_ts': 1519942072.62794,
@@ -27,12 +27,56 @@ def sample_build():
             'name': 'my-project',
             'task_id': 15464337,
             'volume_name': 'DEFAULT',
-            'release': '20190301.1.el7ost'}
+            'release': '20190301.1.el7'}
+
+@pytest.fixture()
+def sample_rpm_list():
+    return [
+        {
+            'build_id': 670920,
+            'nvr': 'my-project-9.0-20190301.1.el7',
+            'extra': None,
+            'buildroot_id': 3837636,
+            'buildtime': 1523295721,
+            'payloadhash': '42731f7fc0b4db65573cd6615a1200fe',
+            'epoch': None,
+            'version': '9.0',
+            'metadata_only': False,
+            'external_repo_id': 0,
+            'release': '20190301.1.el7',
+            'size': 80084,
+            'arch': 'noarch',
+            'id': 5531502,
+            'external_repo_name': 'INTERNAL',
+            'name': 'my-project'
+        },
+        {
+            'build_id': 670920,
+            'nvr': 'my-project-9.0-20190301.1.el7',
+            'extra': None,
+            'buildroot_id': 3837636,
+            'buildtime': 1523295718,
+            'payloadhash': '7bebd0e2cdee9e07709aa22a7273d10b',
+            'epoch': None,
+            'version': '9.0',
+            'metadata_only': False,
+            'external_repo_id': 0,
+            'release': '20190301.1.el7',
+            'size': 111828,
+            'arch': 'src',
+            'id': 5531501,
+            'external_repo_name': 'INTERNAL',
+            'name': 'my-project'
+        }
+    ]
+
 
 @pytest.fixture()
 def sample_archives():
-    return [{'build_id': 666503, 
-            'type_name': 'xml', 
+    return [
+        {
+            'build_id': 666503,
+            'type_name': 'xml',
             'type_id': 5,
             'checksum': '5ccff657de1e95f3ec4f6bbaaa807a64', 
             'extra': None,
@@ -45,8 +89,10 @@ def sample_archives():
             'btype_id': 4,
             'buildroot_id': None,
             'id': 2383603,
-            'size': 674},
-            {'build_id': 666503,
+            'size': 674
+        },
+        {
+            'build_id': 666503,
             'type_name': 'ks',
             'type_id': 38,
             'checksum': '7b628c55169c29977e2765e22f067816',
@@ -60,8 +106,10 @@ def sample_archives():
             'btype_id': 4,
             'buildroot_id': None,
             'id': 2383604,
-            'size': 444},
-            {'build_id': 666503,
+            'size': 444
+        },
+        {
+            'build_id': 666503,
             'type_name': 'rpm',
             'type_id': 38,
             'checksum': 'ecd81413754e88b3907de740e5992275',
@@ -75,8 +123,10 @@ def sample_archives():
             'btype_id': 4,
             'buildroot_id': None,
             'id': 2383605,
-            'size': 2076},
-            {'build_id': 666503,
+            'size': 2076
+        },
+        {
+            'build_id': 666503,
             'type_name': 'image',
             'type_id': 5,
             'checksum': 'acd4059c1af628de2d4cad777f69d151',
@@ -90,8 +140,10 @@ def sample_archives():
             'btype_id': 4,
             'buildroot_id': None,
             'id': 2383606,
-            'size': 1384},
-            {'build_id': 666503,
+            'size': 1384
+        },
+        {
+            'build_id': 666503,
             'type_name': 'qcow2',
             'type_id': 28,
             'checksum': '615019a6c1db5a16fe0dee2f577ef06e',
@@ -105,5 +157,7 @@ def sample_archives():
             'btype_id': 4,
             'buildroot_id': None,
             'id': 2383607,
-            'size': 778874368}]
+            'size': 778874368
+        }
+    ]
 
