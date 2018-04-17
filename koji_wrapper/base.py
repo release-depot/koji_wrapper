@@ -79,7 +79,6 @@ class KojiWrapperBase(object):
             https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3723
         :returns: list of matching rpms from koji
         """
-        # TODO: make this always returns a list, so the client can rely on it
         return self.session.listRPMs(**kwargs)
 
     def _handle_exception():
