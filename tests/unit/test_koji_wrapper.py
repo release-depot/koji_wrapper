@@ -64,6 +64,19 @@ def test_gets_build(a_koji_wrapper, sample_build):
     assert isinstance(b,dict)
     assert 'id' in b
 
+def test_gets_rpms(a_koji_wrapper, sample_rpm_list):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call the rpms method with a valid build_id,
+    THEN we get a list of rpms back from the koji api
+    """
+    a_koji_wrapper.session.listRPMs = MagicMock(return_value=sample_rpm_list)
+    rpms = a_koji_wrapper.rpms(buildID='some_nvr')
+    assert a_koji_wrapper.session.listRPMs.called
+    assert isinstance(rpms,list)
+    ids = [i['build_id'] for i in rpms]
+    assert 670920 in ids
+
 def test_gets_archives(a_koji_wrapper, sample_archives):
     """
     GIVEN we have a valid KojiWrapper with a session,
@@ -105,4 +118,18 @@ def test_returns_srpm_url(a_koji_wrapper, sample_build, sample_rpm_list):
     assert a_koji_wrapper.session.getBuild.called
     assert a_koji_wrapper.session.listRPMs.called
     assert isinstance(srpm_url,str)
+
+def test_srpm_url_raises_exception(a_koji_wrapper, sample_build, sample_rpm_list):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call the srpm_url method with an invalid nvr,
+    THEN we get an exception raised
+    """
+    a_koji_wrapper.build = \
+        MagicMock(return_value=sample_build)
+    a_koji_wrapper.rpms = MagicMock(return_value=sample_rpm_list)
+    a_koji_wrapper._build_srpm_url = \
+        MagicMock(side_effect=Exception('Boom!'))
+    with pytest.raises(Exception):
+        srpm_url = a_koji_wrapper.srpm_url('wrongo')
 
