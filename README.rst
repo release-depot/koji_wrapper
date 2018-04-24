@@ -9,21 +9,10 @@ Koji Wrapper
 .. image:: https://img.shields.io/travis/release-depot/koji_wrapper.svg
         :target: https://travis-ci.org/release-depot/koji_wrapper
 
-.. image:: https://readthedocs.org/projects/koji-wrapper/badge/?version=latest
-        :target: https://koji-wrapper.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-
-.. image:: https://pyup.io/repos/github/release-depot/koji_wrapper/shield.svg
-     :target: https://pyup.io/repos/github/release-depot/koji_wrapper/
-     :alt: Updates
-
-
 
 Helper library to work with areas of koji that are not well supported in that project's api.
 
 * Free software: MIT license
-* Documentation: https://koji-wrapper.readthedocs.io.
 
 
 Features
@@ -45,12 +34,22 @@ into our Makefile and once you have the above dependencies, you can simply run::
   make dev
 
 This will install our dev environment for the package via pipenv.  It is installed
-with --user, so it does not affect your site-packages.  Pipenv create a unique virtualenv
+with --user, so it does not affect your site-packages.  Pipenv creates a unique virtualenv
 for us, which you can activate via::
 
   pipenv shell
 
 See the `pipenv documentation <https://docs.pipenv.org/>`_ for more detail.
+
+Documentation
+*************
+
+To build the documentation on your checkout, simply run::
+
+  make docs
+
+We plan to get this published in the near future, and this README will be
+updated when that happens.
 
 Contributions
 *************
