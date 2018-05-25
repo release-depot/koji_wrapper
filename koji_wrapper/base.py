@@ -11,10 +11,12 @@ import operator
 
 class KojiWrapperBase(object):
 
-    def __init__(self, url='', topurl='', session=None):
+    def __init__(self, url = '', topurl = '',
+                debug = False, session = None):
         self.url = url
         self.topurl = topurl
         self.session = session
+        self.debug = debug
 
     @property
     def url(self):
@@ -33,6 +35,15 @@ class KojiWrapperBase(object):
     @topurl.setter
     def topurl(self, topurl):
         self.__topurl = topurl
+
+    @property
+    def debug(self):
+        """:param debug: Whether to return debug information"""
+        return self.__debug
+
+    @debug.setter
+    def debug(self, debug):
+        self.__debug = debug
 
     @property
     def session(self):
@@ -57,16 +68,14 @@ class KojiWrapperBase(object):
         """
         :param **kwargs: Any valid named parameter accepted by the koji client's
             listArchives method:
-            https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3950
+
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py
         :returns: list of archives from koji
         """
         return self.session.listArchives(**kwargs)
 
     def build(self, nvr):
         """
-        This method wraps the koji client method getBuild:
-        https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3477
-
         :param nvr: nvr of the desired build
         :returns: build object from koji
         """
@@ -75,8 +84,9 @@ class KojiWrapperBase(object):
     def rpms(self, **kwargs):
         """
         :param **kwargs: Any valid named parameter accepted by the koji client's
-            listArchives method:
-            https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3723
+            listRPMs method:
+
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py
         :returns: list of matching rpms from koji
         """
         return self.session.listRPMs(**kwargs)
