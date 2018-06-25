@@ -57,7 +57,7 @@ class KojiWrapper(KojiWrapperBase):
         """
         try:
             build = self.build(nvr)
-            rpm_list = self.rpms(buildID=build.get('build_id'))
+            rpm_list = self.rpms(buildID=build.get('build_id'), arches='src')
             src_rpm = None
             for rpm in rpm_list:
                 if rpm.get('arch') == 'src':
