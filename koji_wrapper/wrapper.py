@@ -4,11 +4,18 @@
 Wraps a connection to koji, managing the session, and providing convenience
 methods for interacting with the koji api.
 """
+import os
 
 import koji
+
 from koji_wrapper.base import KojiWrapperBase
 
+
 class KojiWrapper(KojiWrapperBase):
+
+    def __init__(self, **kwargs):
+        self._pathinfo = None
+        super(KojiWrapper, self).__init__(**kwargs)
 
     def file_types(self, nvr, types=['image']):
         """
@@ -63,8 +70,11 @@ class KojiWrapper(KojiWrapperBase):
             raise inst
 
     def _build_srpm_url(self, rpm=None, build=None):
+
+        if self._pathinfo is None and self.topurl is not None:
+            self._pathinfo = koji.PathInfo(topdir=self.topurl)
+
         # TODO: add error handling.
-        path = koji.PathInfo(topdir=self.topurl)
-        srpm_path = path.rpm(rpm)
-        base_path = path.build(build)
-        return base_path + '/' + srpm_path
+        srpm_path = self._pathinfo.rpm(rpm)
+        base_path = self._pathinfo.build(build)
+        return os.path.join(base_path, srpm_path)

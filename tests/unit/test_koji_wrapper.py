@@ -2,13 +2,17 @@
 Test the main KojiWrapper class
 """
 
-import pytest
+import os
+
 import koji
-from koji_wrapper.wrapper import KojiWrapper
+import pytest
 from unittest.mock import MagicMock
+
+from koji_wrapper.wrapper import KojiWrapper
 
 sample_url = 'http://kojihub.com'
 sample_topurl = 'http://somerepo.org'
+sample_srpm_name = 'foo-bar-1.2-3.src.rpm'
 
 @pytest.fixture()
 def a_koji_wrapper():
@@ -118,6 +122,71 @@ def test_returns_srpm_url(a_koji_wrapper, sample_build, sample_rpm_list):
     assert a_koji_wrapper.session.getBuild.called
     assert a_koji_wrapper.session.listRPMs.called
     assert isinstance(srpm_url,str)
+
+
+@pytest.mark.parametrize("srpm_name,build", [
+    (None, None),
+    ('', None),
+    ('', ''),
+    (None, ''),
+    ('', ''),
+])
+def test_build_srpm_url_none_and_empty(a_koji_wrapper, srpm_name, build):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call _build_srpm_url method with parameters provided
+    THEN we get back a TypeError
+    """
+
+    with pytest.raises(TypeError):
+        a_koji_wrapper._build_srpm_url(srpm_name, build)
+
+
+@pytest.mark.parametrize("build", [
+    (None),
+    (''),
+])
+def test_build_srpm_url_sample_srpm_name_none_or_empty(a_koji_wrapper, build):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call _build_srpm_url method with parameters provided
+    THEN we get back a TypeError
+    """
+
+    with pytest.raises(TypeError):
+        a_koji_wrapper._build_srpm_url(sample_srpm_name, build)
+
+
+@pytest.mark.parametrize("srpm_name", [
+    (None),
+    (''),
+])
+def test_build_srpm_url_half_data_none_or_empty(a_koji_wrapper, srpm_name, sample_build):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call _build_srpm_url method with parameters provided
+    THEN we get back a TypeError
+    """
+
+    with pytest.raises(TypeError):
+        a_koji_wrapper._build_srpm_url(srpm_name, sample_build)
+
+
+def test_build_srpm_url_positive(a_koji_wrapper, sample_build, sample_srpm):
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN we call _build_srpm_url method with good srpm and build
+    THEN we get back a url for sample srpm
+    """
+
+    expected_full_url = os.path.join(sample_topurl, sample_srpm_name)
+
+    a_koji_wrapper._pathinfo = MagicMock(koji.PathInfo)
+    a_koji_wrapper._pathinfo.rpm = MagicMock(return_value=sample_srpm_name)
+    a_koji_wrapper._pathinfo.build = MagicMock(return_value=sample_topurl)
+    srpm_full_path = a_koji_wrapper._build_srpm_url(sample_srpm, sample_build)
+    assert srpm_full_path == expected_full_url
+
 
 def test_srpm_url_raises_exception(a_koji_wrapper, sample_build, sample_rpm_list):
     """
