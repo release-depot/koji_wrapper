@@ -62,7 +62,7 @@ class KojiWrapper(KojiWrapperBase):
             # errors here.
             raise inst
 
-    def _build_srpm_url(rpm=None, build=None):
+    def _build_srpm_url(self, rpm=None, build=None):
         # TODO: add error handling.
         path = koji.PathInfo(topdir=self.topurl)
         srpm_path = path.rpm(rpm)
