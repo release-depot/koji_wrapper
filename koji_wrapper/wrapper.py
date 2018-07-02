@@ -15,7 +15,7 @@ class KojiWrapper(KojiWrapperBase):
 
     def __init__(self, **kwargs):
         self._pathinfo = None
-        super(KojiWrapper, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def file_types(self, nvr, types=['image']):
         """
