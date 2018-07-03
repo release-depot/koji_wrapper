@@ -2,6 +2,7 @@
 
 import pytest
 
+
 @pytest.fixture()
 def sample_build():
     return {'package_name': 'my-project',
@@ -28,6 +29,7 @@ def sample_build():
             'task_id': 15464337,
             'volume_name': 'DEFAULT',
             'release': '20190301.1.el7'}
+
 
 @pytest.fixture()
 def sample_rpm_list():
@@ -70,6 +72,7 @@ def sample_rpm_list():
         }
     ]
 
+
 @pytest.fixture()
 def sample_srpm():
     return {
@@ -91,6 +94,7 @@ def sample_srpm():
         'name': 'my-project'
     }
 
+
 @pytest.fixture()
 def sample_archives():
     return [
@@ -98,7 +102,7 @@ def sample_archives():
             'build_id': 666503,
             'type_name': 'xml',
             'type_id': 5,
-            'checksum': '5ccff657de1e95f3ec4f6bbaaa807a64', 
+            'checksum': '5ccff657de1e95f3ec4f6bbaaa807a64',
             'extra': None,
             'filename': 'tdl-x86_64.xml',
             'type_description': 'XML file',
@@ -180,4 +184,3 @@ def sample_archives():
             'size': 778874368
         }
     ]
-

@@ -39,7 +39,7 @@ class KojiWrapper(KojiWrapperBase):
             return list(file_types)
 
         # Default
-        #TODO: make sure we actually need this default - can't see why we do.
+        # TODO: make sure we actually need this default - can't see why we do.
         return ['rpm']
 
     def srpm_url(self, nvr=None):

@@ -7,7 +7,7 @@ convenience methods for interacting with the koji api.
 """
 
 import koji
-import operator
+
 
 class KojiWrapperBase(object):
 
