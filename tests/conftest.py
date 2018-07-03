@@ -70,6 +70,26 @@ def sample_rpm_list():
         }
     ]
 
+@pytest.fixture()
+def sample_srpm():
+    return {
+        'build_id': 670920,
+        'nvr': 'my-project-9.0-20190301.1.el7',
+        'extra': None,
+        'buildroot_id': 3837636,
+        'buildtime': 1523295718,
+        'payloadhash': '7bebd0e2cdee9e07709aa22a7273d10b',
+        'epoch': None,
+        'version': '9.0',
+        'metadata_only': False,
+        'external_repo_id': 0,
+        'release': '20190301.1.el7',
+        'size': 111828,
+        'arch': 'src',
+        'id': 5531501,
+        'external_repo_name': 'INTERNAL',
+        'name': 'my-project'
+    }
 
 @pytest.fixture()
 def sample_archives():
