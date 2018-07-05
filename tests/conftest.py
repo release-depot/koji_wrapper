@@ -184,3 +184,55 @@ def sample_archives():
             'size': 778874368
         }
     ]
+
+
+@pytest.fixture()
+def sample_tagged_builds():
+    return [
+        {
+            'build_id': 711039,
+            'owner_name': 'zcaplovi',
+            'package_name': 'my-project-selinux',
+            'task_id': 16729456,
+            'state': 1,
+            'nvr': 'my-project-selinux-0.8.14-13.el7ost',
+            'start_time': '2018-06-14 15:52:44.261256',
+            'creation_event_id': 19964853,
+            'creation_time': '2018-06-14 15:52:44.261256',
+            'epoch': None,
+            'tag_id': 11970,
+            'completion_time': '2018-06-14 15:58:09.078495',
+            'tag_name': 'rhos-13.0-rhel-7-candidate',
+            'version': '0.8.14',
+            'volume_id': 0,
+            'release': '13.el7ost',
+            'package_id': 40498,
+            'owner_id': 4340,
+            'id': 711039,
+            'volume_name': 'DEFAULT',
+            'name': 'my-project-selinux'
+        },
+        {
+            'build_id': 710815,
+            'owner_name': 'skaplons',
+            'package_name': 'cool-project',
+            'task_id': 16717562,
+            'state': 1,
+            'nvr': 'cool-project-12.0.2-0.20180421011362.0ec54fd.el7ost',
+            'start_time': '2018-06-13 19:43:51.567191',
+            'creation_event_id': 19957612,
+            'creation_time': '2018-06-13 19:43:51.567191',
+            'epoch': 1,
+            'tag_id': 11970,
+            'completion_time': '2018-06-13 19:52:31.816179',
+            'tag_name': 'rhos-13.0-rhel-7-candidate',
+            'version': '12.0.2',
+            'volume_id': 0,
+            'release': '0.20180421011362.0ec54fd.el7ost',
+            'package_id': 43081,
+            'owner_id': 4327,
+            'id': 710815,
+            'volume_name': 'DEFAULT',
+            'name': 'cool-project'
+        }
+    ]
