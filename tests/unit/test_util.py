@@ -4,6 +4,7 @@ Test the utility methods
 
 import pytest  # NOQA
 from koji_wrapper.util import convert_to_list
+from koji_wrapper.exceptions import UnsupportedTypeException
 
 
 class TestConvertToList(object):
@@ -39,3 +40,11 @@ class TestConvertToList(object):
         assert isinstance(returned, list)
         assert len(returned) == 0
         assert returned == []
+
+    def test_with_unsupported(self):
+        """
+        WHEN we pass in an unsupported type
+        THEN we get back an UnsupportedTypeException
+        """
+        with pytest.raises(UnsupportedTypeException):
+            convert_to_list({})
