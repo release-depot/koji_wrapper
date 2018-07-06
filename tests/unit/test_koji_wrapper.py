@@ -7,8 +7,8 @@ import os
 import koji
 import pytest
 from unittest.mock import MagicMock
-
 from koji_wrapper.wrapper import KojiWrapper
+
 
 sample_url = 'http://kojihub.com'
 sample_topurl = 'http://somerepo.org'
@@ -95,7 +95,8 @@ def test_gets_archives(a_koji_wrapper, sample_archives):
     WHEN we call the archives method with a valid build id and type,
     THEN we get a list of achives back from the koji api
     """
-    a_koji_wrapper.session.listArchives = MagicMock(return_value=sample_archives)
+    a_koji_wrapper.session.listArchives = \
+        MagicMock(return_value=sample_archives)
     arc = a_koji_wrapper.archives(buildID='12345', type='image')
     assert a_koji_wrapper.session.listArchives.called
     assert isinstance(arc, list)
@@ -171,7 +172,9 @@ def test_build_srpm_url_sample_srpm_name_none_or_empty(a_koji_wrapper, build):
     (None),
     (''),
 ])
-def test_build_srpm_url_half_data_none_or_empty(a_koji_wrapper, srpm_name, sample_build):
+def test_build_srpm_url_half_data_none_or_empty(a_koji_wrapper,
+                                                srpm_name,
+                                                sample_build):
     """
     GIVEN we have a valid KojiWrapper with a session,
     WHEN we call _build_srpm_url method with parameters provided
@@ -198,7 +201,9 @@ def test_build_srpm_url_positive(a_koji_wrapper, sample_build, sample_srpm):
     assert srpm_full_path == expected_full_url
 
 
-def test_srpm_url_raises_exception(a_koji_wrapper, sample_build, sample_rpm_list):
+def test_srpm_url_raises_exception(a_koji_wrapper,
+                                   sample_build,
+                                   sample_rpm_list):
     """
     GIVEN we have a valid KojiWrapper with a session,
     WHEN we call the srpm_url method with an invalid nvr,
