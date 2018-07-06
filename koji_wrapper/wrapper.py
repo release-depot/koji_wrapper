@@ -65,8 +65,8 @@ class KojiWrapper(KojiWrapperBase):
                     break
             return self._build_srpm_url(rpm=src_rpm, build=build)
         except Exception as inst:
-            # TODO: either add logging or decide if we want to do more to handle
-            # errors here.
+            # TODO: either add logging or decide if we want to do more to
+            # handle errors here.
             raise inst
 
     def _build_srpm_url(self, rpm=None, build=None):

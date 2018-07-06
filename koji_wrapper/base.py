@@ -37,10 +37,10 @@ class KojiWrapperBase(object):
     @property
     def session(self):
         '''
-        :param session: makes sure the object has a koji.ClientSession to use
-                Can be passed an existing KojiWrapper object, koji.ClientSession
-                object, or None.  In the first two cases, the existing session
-                will be reused
+        :param session: makes sure the object has a koji.ClientSession to use.
+                Can be passed an existing KojiWrapper object,
+                koji.ClientSession object, or None.  In the first two cases,
+                the existing session will be reused.
         '''
         return self.__session
 
@@ -55,9 +55,11 @@ class KojiWrapperBase(object):
 
     def archives(self, **kwargs):
         """
-        :param **kwargs: Any valid named parameter accepted by the koji client's
-            listArchives method:
-            https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3950
+        :param **kwargs: Any valid named parameter accepted by the koji
+                client method listArchives:
+
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py
+
         :returns: list of archives from koji
         """
         return self.session.listArchives(**kwargs)
@@ -65,7 +67,8 @@ class KojiWrapperBase(object):
     def build(self, nvr):
         """
         This method wraps the koji client method getBuild:
-        https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3477
+
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py
 
         :param nvr: nvr of the desired build
         :returns: build object from koji
@@ -74,9 +77,11 @@ class KojiWrapperBase(object):
 
     def rpms(self, **kwargs):
         """
-        :param **kwargs: Any valid named parameter accepted by the koji client's
-            listArchives method:
-            https://pagure.io/koji/blob/master/f/hub/kojihub.py#_3723
+        :param **kwargs: Any valid named parameter accepted by the koji
+                client method listRPMs:
+
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py
+
         :returns: list of matching rpms from koji
         """
         return self.session.listRPMs(**kwargs)
