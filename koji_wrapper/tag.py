@@ -58,12 +58,18 @@ class KojiTag(KojiWrapper):
     def tagged_list(self, tagged_list):
             self.__tagged_list = tagged_list
 
-    def builds(self):
+    def builds(self, **kwargs):
         """
+        This method wraps the koji client method listTagged:
+
+            https://pagure.io/koji/blob/master/f/hub/kojihub.py
+
+        :param **kwargs: Any valid named parameter accepted by the koji
+                client method listTagged:
         :returns: list of matching tagged build objects from koji
         """
         if self.tagged_list is None:
-            self._filter_tagged(self.session.listTagged(self.tag))
+            self._filter_tagged(self.session.listTagged(self.tag, **kwargs))
         return self.tagged_list
 
     def _filter_tagged(self, tagged_builds):
