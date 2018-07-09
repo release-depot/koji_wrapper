@@ -130,8 +130,9 @@ def test_returns_srpm_url(a_koji_wrapper, sample_build, sample_rpm_list):
     a_koji_wrapper._build_srpm_url = \
         MagicMock(return_value='http://my.kojiserver/rpms/something.src.rpm')
     srpm_url = a_koji_wrapper.srpm_url('myproject-9.0-20190326.1.el7')
-    assert a_koji_wrapper.session.getBuild.called
-    assert a_koji_wrapper.session.listRPMs.called
+    assert a_koji_wrapper.build.called
+    assert a_koji_wrapper.rpms.called
+    assert a_koji_wrapper._build_srpm_url.called
     assert isinstance(srpm_url, str)
 
 
