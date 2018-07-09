@@ -10,6 +10,13 @@ import koji
 
 
 class KojiWrapperBase(object):
+    """
+    Base Koji Wrapper object
+
+    This class provides the common functionality to wrap
+    a connection to koji, manage the session and simple
+    convenience methos for interacting with the koji api.
+    """
 
     def __init__(self, url='', topurl='', session=None):
         self.url = url
@@ -36,12 +43,14 @@ class KojiWrapperBase(object):
 
     @property
     def session(self):
-        '''
+        """
+        This property exposes koji.ClientSession used by wrapper
+
         :param session: makes sure the object has a koji.ClientSession to use.
                 Can be passed an existing KojiWrapper object,
                 koji.ClientSession object, or None.  In the first two cases,
                 the existing session will be reused.
-        '''
+        """
         return self.__session
 
     @session.setter
@@ -60,10 +69,12 @@ class KojiWrapperBase(object):
 
     def archives(self, **kwargs):
         """
-        :param **kwargs: Any valid named parameter accepted by the koji
-                client method listArchives:
+        This method wraps koji client method listArchives
 
             https://pagure.io/koji/blob/master/f/hub/kojihub.py
+
+        :param **kwargs: Any valid named parameter accepted by the koji
+                client method listArchives:
 
         :returns: list of archives from koji
         """
@@ -82,10 +93,12 @@ class KojiWrapperBase(object):
 
     def rpms(self, **kwargs):
         """
-        :param **kwargs: Any valid named parameter accepted by the koji
-                client method listRPMs:
+        This method wraps the koji client method listRPMs
 
             https://pagure.io/koji/blob/master/f/hub/kojihub.py
+
+        :param **kwargs: Any valid named parameter accepted by the koji
+                client method listRPMs:
 
         :returns: list of matching rpms from koji
         """
