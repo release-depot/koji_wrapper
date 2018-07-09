@@ -50,6 +50,11 @@ class KojiWrapperBase(object):
             self.__session = newsession
         elif issubclass(type(newsession), KojiWrapperBase):
             self.__session = newsession.session
+            if self.url is None or self.url == '':
+                self.url = newsession.url
+
+            if self.topurl is None or self.topurl == '':
+                self.topurl = newsession.topurl
         else:
             self.__session = koji.ClientSession(self.url)
 

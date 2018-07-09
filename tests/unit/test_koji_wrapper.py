@@ -62,6 +62,20 @@ def test_init_with_koji_wrapper():
     assert test_wrapper.session is my_koji_wrapper.session
 
 
+def test_init_with_koji_wrapper_only():
+    """
+    GIVEN we have a valid KojiWrapper with a session,
+    WHEN a KojiWrapper object is passed as the session to a new KojiWrapper
+    THEN this object's session is set to the session and url/topurl
+    """
+    my_koji_wrapper = build_wrapper(None)
+    test_wrapper = KojiWrapper(session=my_koji_wrapper)
+    assert isinstance(test_wrapper.session, koji.ClientSession)
+    assert test_wrapper.session is my_koji_wrapper.session
+    assert test_wrapper.url is my_koji_wrapper.url
+    assert test_wrapper.topurl is my_koji_wrapper.topurl
+
+
 def test_gets_build(a_koji_wrapper, sample_build):
     """
     GIVEN we have a valid KojiWrapper with a session,
