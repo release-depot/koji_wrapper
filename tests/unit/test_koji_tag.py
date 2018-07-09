@@ -73,6 +73,20 @@ def test_gets_builds(sample_tagged_builds):
     assert kt.session.listTagged.called
 
 
+def test_passes_builds_extra_args(sample_tagged_builds):
+    """
+    GIVEN we have a KojiTag object
+    WHEN we call the builds() method for the first time with a parameter
+    THEN the tagged builds should be returned
+    AND the listTagged method of the session object should be called
+        with the expected parameter.
+    """
+    kt = build_tag('foo')
+    kt.session.listTagged = MagicMock(return_value=sample_tagged_builds)
+    assert kt.builds(inherit=True) == sample_tagged_builds
+    assert kt.session.listTagged.called_with(inherit=True)
+
+
 def test_caches_builds(sample_tagged_builds):
     """
     GIVEN we have a KojiTag object
