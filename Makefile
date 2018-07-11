@@ -26,6 +26,8 @@ export PRINT_HELP_PYSCRIPT
 
 BROWSER := @pipenv run python -c "$$BROWSER_PYSCRIPT"
 
+PIPENV_AVAILABLE := $(shell command -v pipenv 2> /dev/null)
+
 help:
 	@pipenv run python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
@@ -85,7 +87,9 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 init: ## install the dev environment
+ifndef PIPENV_AVAILABLE
 	pip3 install --user pipenv
+endif
 
 install: init ## install the package to the active Python's site-packages
 	pipenv run python setup.py install
