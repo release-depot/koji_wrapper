@@ -22,7 +22,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
-import koji_wrapper
 
 # the following is needed for readthedocs, since they will not have the required
 # C libraries, see documentation @:
@@ -31,14 +30,15 @@ from unittest.mock import MagicMock
 
 
 class Mock(MagicMock):
-        @classmethod
-        def __getattr__(cls, name):
-            return MagicMock()
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
 
 
 MOCK_MODULES = ['koji', 'rpm']
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
+import koji_wrapper
 
 # -- General configuration ---------------------------------------------
 
