@@ -20,6 +20,12 @@ Features
 
 * TODO
 
+Testing mergify
+---------------
+
+We want to make sure mergify will not merge any patches with the WIP label
+applied, so this is a text PR to see if that works.
+
 Notes
 -----
 
