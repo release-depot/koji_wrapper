@@ -5,3 +5,7 @@
 
 class UnsupportedTypeException(Exception):
     pass
+
+
+class UnknownAuthMethod(Exception):
+    pass
