@@ -15,7 +15,7 @@ class KojiWrapperBase(object):
 
     This class provides the common functionality to wrap
     a connection to koji, manage the session and simple
-    convenience methos for interacting with the koji api.
+    convenience methods for interacting with the koji api.
     """
 
     def __init__(self, url='', topurl='', session=None):
