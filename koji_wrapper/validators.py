@@ -10,7 +10,7 @@ def validate_required(value):
     :returns: True or ValueError
     """
     if value is None:
-        raise ValueError(f'Missing value for argument')
+        raise ValueError('Missing value for argument')
     return True
 
 
