@@ -6,7 +6,10 @@ wrap a connection to koji, manage the session, and provide
 convenience methods for interacting with the koji api.
 """
 
+import os.path
+
 import koji
+from koji_wrapper.exceptions import UnknownAuthMethod
 
 
 class KojiWrapperBase(object):
@@ -22,6 +25,21 @@ class KojiWrapperBase(object):
         self.url = url
         self.topurl = topurl
         self.session = session
+
+    @classmethod
+    def from_profile(cls, profile):
+        opts = koji.read_config(profile)
+        for k, v in opts.iteritems():
+            opts[k] = os.path.expanduser(v) if type(v) is str else v
+        session = koji.ClientSession(opts['server'], opts=opts)
+        if opts['auth'] is None:
+            session.ssl_login(opts['cert'], None, opts['serverca'])
+        elif opts['auth'] == 'kerberos':
+            session.krb_login(principal=opts.principal, keytab=opts.keytab)
+        else:
+            raise UnknownAuthMethod()
+        session.login()
+        return cls.session(session)
 
     @property
     def url(self):
