@@ -87,3 +87,44 @@ class KojiTag(KojiWrapper):
     def latest_by_nvr(self):
         # TODO: implement/port _find_latest logic
         pass
+
+    def builds_by_attribute(self, attribute):
+        """
+        Return a list of the specified attribute, extracted from the list of
+        tagged builds.  For instance, you may call with 'nvr' to get back the
+        list of NVRs in your build list.  Throws a KeyError if you request an
+        attribute that does not exist in the build objects.
+
+        :param attribute: Any attribute (or key) from a build object, such as
+                          'nvr', 'name', etc.
+        :returns: a list of strings
+        :raises KeyError: if attribute passed is invalid
+
+        """
+
+        # covers brewtag.components and brewtag.builds cases
+        return [build[attribute] for build in self.tagged_list]
+
+    def builds_by_attribute_and_label(self, attribute, label, match):
+        """
+        Return a list of the specified attribute, filtered by matching labels,
+        extracted from the list of tagged builds.  For instance, you may call
+        with 'nvr', 'name', 'foo' to get back the list of NVRs in your build
+        list for items with a name of 'foo'.  Throws a KeyError if you request
+        an attribute that does not exist in the build objects.
+
+        :param attribute: Any attribute (or key) from a build object, such as
+                          'nvr', 'name', etc.
+        :param label: Any label (or key) from a build object, which you wish to
+                      use to filter your results, such as 'nvr', 'name', etc.
+        :param match: Value you are looking to match for the label that was
+                      passed in.
+
+        :returns: a list of strings
+        :raises KeyError: if attribute passed is invalid
+
+        """
+
+        # covers brewtag.builds_package case
+        return [build[attribute] for build in self.tagged_list
+                if build[label] == match]

@@ -143,3 +143,66 @@ def test_filters_builds_by_both(sample_tagged_builds):
     kt.session.listTagged = MagicMock(return_value=sample_tagged_builds)
     filtered = kt._filter_tagged(sample_tagged_builds)
     assert len(filtered) == 0
+
+
+def test_gets_attribute_for_builds_in_list(sample_tagged_builds):
+    """
+    GIVEN we have a KojiTag object
+    WHEN we call builds_by_attribute with the desired attribute name
+    THEN we get back a list of values for that attribute name from the list of
+        builds.
+    """
+
+    kt = build_tag('foo')
+    kt.tagged_list = sample_tagged_builds
+    nvrs = kt.builds_by_attribute('nvr')
+    assert len(kt.tagged_list) == 2
+    assert len(nvrs) == 2
+    assert nvrs[0] == 'my-project-selinux-0.8.14-13.el7ost'
+
+
+def test_invalid_attribute_for_builds_in_list(sample_tagged_builds):
+    """
+    GIVEN we have a KojiTag object
+    WHEN we call builds_by_attribute with an invalid attribute name
+    THEN we get a KeyError.
+    """
+
+    kt = build_tag('foo')
+    kt.tagged_list = sample_tagged_builds
+    with pytest.raises(KeyError):
+        nvrs = kt.builds_by_attribute('farkle') # NOQA
+
+
+def test_builds_by_attribute_and_label(sample_tagged_builds):
+    """
+    GIVEN we have a KojiTag object
+    WHEN we call builds_by_attribute_and_label with the desired attribute name
+        and label,
+    THEN we get back a list of values for that attribute name from the list of
+        builds where the label also matches.
+    """
+
+    kt = build_tag('foo')
+    kt.tagged_list = sample_tagged_builds
+    nvrs = kt.builds_by_attribute_and_label('nvr',
+                                            'name',
+                                            'my-project-selinux')
+    assert len(kt.tagged_list) == 2
+    assert len(nvrs) == 1
+    assert nvrs[0] == 'my-project-selinux-0.8.14-13.el7ost'
+
+
+def test_invalid_builds_by_attribute_and_label(sample_tagged_builds):
+    """
+    GIVEN we have a KojiTag object
+    WHEN we call builds_by_attribute_and_label with an invalid attribute name
+    THEN we get a KeyError.
+    """
+
+    kt = build_tag('foo')
+    kt.tagged_list = sample_tagged_builds
+    with pytest.raises(KeyError):
+        kt.builds_by_attribute_and_label('farkle',
+                                         'name',
+                                         'my-project-selinux')
