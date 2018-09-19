@@ -9,6 +9,7 @@ name = "pypi"
 
 koji = {version = ">=1.15.1"}
 
+
 [dev-packages]
 
 bumpversion = "*"
@@ -19,3 +20,4 @@ coverage = "*"
 sphinx = "*"
 pytest = "*"
 pytest-runner = "*"
+pytest-datadir = "*"
