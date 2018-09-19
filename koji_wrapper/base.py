@@ -18,9 +18,12 @@ class KojiWrapperBase(object):
     convenience methods for interacting with the koji api.
     """
 
-    def __init__(self, url='', topurl='', session=None):
+    def __init__(self, url='', topurl='',
+                 profile='', user_config='', session=None):
         self.url = url
         self.topurl = topurl
+        self.profile = profile
+        self.user_config = user_config
         self.session = session
 
     @property
@@ -42,14 +45,58 @@ class KojiWrapperBase(object):
         self.__topurl = topurl
 
     @property
+    def profile(self):
+        """
+        This is the profile koji should use to configure a client.
+
+        This is a specific server, and there should be a config file specified
+        in one of the standard locations koji looks:
+          - /etc/koji.conf
+          - /etc/koji.conf.d
+          - ~/.koji/config.d
+        :param profile: profile name of the koji-compliant hub to use
+        """
+        return self.__profile
+
+    @profile.setter
+    def profile(self, profile):
+        self.__profile = profile
+
+    @property
+    def user_config(self):
+        """
+        This would be used in the case where you have custom user config.
+
+        The file can be in any readable location specified by the user, and can
+        point to a directory or a specific file.
+
+        :param user_config: user_config file/path to be merged with profile
+                or used in place of the profile if not installed in the system
+                location.
+        """
+
+        return self.__user_config
+
+    @user_config.setter
+    def user_config(self, user_config):
+        self.__user_config = user_config
+
+    @property
     def session(self):
         """
         This property exposes koji.ClientSession used by wrapper
 
-        :param session: makes sure the object has a koji.ClientSession to use.
-                Can be passed an existing KojiWrapper object,
-                koji.ClientSession object, or None.  In the first two cases,
-                the existing session will be reused.
+        Makes sure the object has a koji.ClientSession to use. It can be passed
+        an existing KojiWrapper object, koji.ClientSession object, or None.  In
+        the first two cases, the existing session will be reused. In the case
+        of None, a new ClientSession will be created using the url param, if
+        present.  When not present, if a profile and/or config are specified,
+        those will be used to configure the ClientSession object.
+
+        :param newsession: koji.ClientSession object to use
+
+        :raises koji.ConfigurationError: In the case of a bad configuration,
+            the client is not created, and this error is returned.
         """
         return self.__session
 
@@ -65,7 +112,31 @@ class KojiWrapperBase(object):
             if self.topurl is None or self.topurl == '':
                 self.topurl = newsession.topurl
         else:
-            self.__session = koji.ClientSession(self.url)
+            self.__session = self._build_client()
+
+    def _build_client(self):
+        """
+        Method to set up the KojiClient object used in this instance of
+        KojiWrapperBase.  It will call all needed methods to get the config set
+        up for the user.
+        """
+        if self.url:
+            return koji.ClientSession(self.url)
+        else:
+            _profile = koji.read_config(self.profile,
+                                        user_config=self.user_config)
+            """
+            NOTE: This check is here because if the user does not have and koji
+            config files, read_config will 'helpfully' return you a useless
+            default config.  The required baseurl ('server' in _profile) has a
+            default, so we cannot check that.  However, topurl defaults to
+            None, so we currently use this to devine if the returned config
+            is the useless default.
+            """
+            if not _profile.get('topurl'):
+                raise koji.ConfigurationError("no configuration for profile \
+                        name: {0}".format(self.profile))
+            return koji.ClientSession(_profile.get('server'), opts=_profile)
 
     def archives(self, **kwargs):
         """

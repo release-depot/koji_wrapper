@@ -95,6 +95,7 @@ install: init ## install the package to the active Python's site-packages
 	pipenv run python setup.py install
 
 dev: init ## set up a development environment
+	pipenv --three # This is here in case your system python is 2.x
 	pipenv install --dev
 	pipenv run pip install -e .
 
