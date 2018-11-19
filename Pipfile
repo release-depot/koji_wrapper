@@ -8,6 +8,7 @@ name = "pypi"
 [packages]
 
 koji = {version = ">=1.15.1"}
+toolchest = "*"
 
 
 [dev-packages]
