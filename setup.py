@@ -15,7 +15,7 @@ requirements = ['koji', 'toolchest']
 
 setup_requirements = ['pytest-runner', ]
 
-test_requirements = ['pytest', ]
+test_requirements = ['pytest', 'pytest-datadir', ]
 
 setup(
     author="Jason Guiditta",
