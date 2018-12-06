@@ -206,3 +206,13 @@ def test_invalid_builds_by_attribute_and_label(sample_tagged_builds):
         kt.builds_by_attribute_and_label('farkle',
                                          'name',
                                          'my-project-selinux')
+
+
+def test_str_returns_tag():
+    """
+    GIVEN we have a KojiTag object
+    WHEN we call through to the __str__() method
+    THEN we get back a string with the tag it was based on
+    """
+    kt = build_tag('foo')
+    assert 'foo' == str(kt)
