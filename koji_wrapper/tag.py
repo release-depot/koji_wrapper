@@ -19,6 +19,10 @@ class KojiTag(KojiWrapper):
         self.tagged_list = None
         super().__init__(**kwargs)
 
+    def __str__(self):
+        """return tag as description(str for human)"""
+        return self.tag
+
     @property
     def tag(self):
         """:param tag: tag to filter results with."""
