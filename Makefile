@@ -54,10 +54,10 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	pipenv run flake8 koji_wrapper tests
 
-test: dev ## run tests quickly with the default Python
+test: ## run tests quickly with the default Python
 	pipenv run py.test tests
 
-test-all: dev ## run tests on every Python version with tox
+test-all: ## run tests on every Python version with tox
 	pipenv run tox
 
 coverage: ## check code coverage quickly with the default Python
@@ -97,7 +97,6 @@ install: init ## install the package to the active Python's site-packages
 dev: init ## set up a development environment
 	pipenv --three # This is here in case your system python is 2.x
 	pipenv install --dev
-	pipenv run pip install -e .
 
 reset: clean # clean out your pipenv virtualenv
 	pipenv uninstall --all
