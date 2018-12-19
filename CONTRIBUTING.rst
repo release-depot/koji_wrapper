@@ -70,6 +70,11 @@ Ready to contribute? Here's how to set up `koji_wrapper` for local development.
     $ cd koji_wrapper/
     $ python setup.py develop
 
+3a. Alternatively, feel free to use pipenv if you prefer::
+
+    $ pipenv --three
+    $ pipenv install --dev
+
 4. Create a branch for local development::
 
     $ git checkout -b name-of-your-bugfix-or-feature

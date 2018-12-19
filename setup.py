@@ -15,7 +15,9 @@ requirements = ['koji', 'toolchest']
 
 setup_requirements = ['pytest-runner', ]
 
-test_requirements = ['pytest', 'pytest-datadir', ]
+test_requirements = ['pytest', 'pytest-datadir', 'tox', 'flake8']
+
+docs_requirements = ['sphinx']
 
 setup(
     author="Jason Guiditta",
@@ -33,6 +35,8 @@ setup(
     description=("Helper library to work with areas of koji that are "
                  "not well supported in that project's api."),
     install_requires=requirements,
+    extras_require={'test': test_requirements,
+                    'docs': docs_requirements},
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
