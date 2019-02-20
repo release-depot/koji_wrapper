@@ -60,7 +60,7 @@ class KojiTag(KojiWrapper):
 
     @tagged_list.setter
     def tagged_list(self, tagged_list):
-            self.__tagged_list = tagged_list
+        self.__tagged_list = tagged_list
 
     def builds(self, **kwargs):
         """
