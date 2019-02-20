@@ -36,7 +36,7 @@ def test_sets_tag():
     THEN the tag property should be set
     """
     kt = build_tag('foo')
-    assert kt.tag is 'foo'
+    assert kt.tag == 'foo'
     assert kt.blacklist == []
 
 
