@@ -5,6 +5,7 @@ Provides common functionality for classes in this module which
 wrap a connection to koji, manage the session, and provide
 convenience methods for interacting with the koji api.
 """
+import logging
 
 import koji
 
@@ -19,12 +20,15 @@ class KojiWrapperBase(object):
     """
 
     def __init__(self, url='', topurl='',
-                 profile='', user_config='', session=None):
+                 profile='', user_config='',
+                 session=None, logger=None):
         self.url = url
         self.topurl = topurl
         self.profile = profile
         self.user_config = user_config
         self.session = session
+        if logger is None:
+            self.logger = logging.getLogger(__name__)
 
     @property
     def url(self):
@@ -123,20 +127,40 @@ class KojiWrapperBase(object):
         if self.url:
             return koji.ClientSession(self.url)
         else:
-            _profile = koji.read_config(self.profile,
-                                        user_config=self.user_config)
+            _configuration = koji.read_config(self.profile,
+                                              user_config=self.user_config)
             """
             NOTE: This check is here because if the user does not have and koji
             config files, read_config will 'helpfully' return you a useless
-            default config.  The required baseurl ('server' in _profile) has a
-            default, so we cannot check that.  However, topurl defaults to
-            None, so we currently use this to devine if the returned config
+            default config.  The required baseurl ('server' in _configuration)
+            has a default, so we cannot check that.  However, topurl defaults
+            to None, so we currently use this to devine if the returned config
             is the useless default.
             """
-            if not _profile.get('topurl'):
+            if not _configuration.get('topurl'):
                 raise koji.ConfigurationError("no configuration for profile \
                         name: {0}".format(self.profile))
-            return koji.ClientSession(_profile.get('server'), opts=_profile)
+            return koji.ClientSession(_configuration.get('server'),
+                                      opts=_configuration)
+
+    def login(self):
+        """
+        Method to log the client in.  This can be used directly if desired, but
+        is more intended to be called by a decorator as needed when an api
+        method is called and reports that it requires the client to be logged
+        in.
+
+        :returns: True or False
+        """
+        try:
+            if self.session.opts.get('authtype') == 'kerberos':
+                return self.session.krb_login()
+            else:
+                return self.session.ssl_login()
+        except koji.AuthError as e:
+            self.logger.exception(f'login error: {e}')
+            pass
+        return False
 
     def archives(self, **kwargs):
         """
