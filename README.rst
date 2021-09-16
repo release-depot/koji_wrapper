@@ -6,8 +6,6 @@ Koji Wrapper
 .. image:: https://img.shields.io/pypi/v/koji_wrapper.svg
         :target: https://pypi.python.org/pypi/koji_wrapper
 
-.. image:: https://img.shields.io/travis/release-depot/koji_wrapper.svg
-        :target: https://travis-ci.org/release-depot/koji_wrapper
 
 
 Helper library to work with areas of koji that are not well supported in that project's api.
