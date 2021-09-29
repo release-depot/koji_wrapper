@@ -15,7 +15,8 @@ requirements = ['koji', 'toolchest']
 
 setup_requirements = ['pytest-runner', ]
 
-test_requirements = ['pytest', 'pytest-datadir', 'tox', 'flake8']
+test_requirements = ['pytest', 'pytest-datadir',
+                     'pytest-cov', 'tox', 'flake8']
 
 docs_requirements = ['sphinx']
 
