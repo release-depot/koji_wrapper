@@ -5,18 +5,18 @@ Koji Wrapper
 
 .. image:: https://img.shields.io/pypi/v/koji_wrapper.svg
         :target: https://pypi.python.org/pypi/koji_wrapper
+.. image::
+   https://github.com/release-depot/koji_wrapper/actions/workflows/test.yml/badge.svg
+   :target: `test workflow`_
 
+
+.. _test workflow: https://github.com/release-depot/koji_wrapper/actions/workflows/test.yml
 
 
 Helper library to work with areas of koji that are not well supported in that project's api.
 
 * Free software: MIT license
 
-
-Features
---------
-
-* TODO
 
 Notes
 -----
@@ -27,13 +27,16 @@ This library only supports python 3. Some features may still work with python
 Development
 -----------
 
-There are several dependencies needed to build and work on koji_wrapper.  Using
-your distribution's package manager, install these system packages::
+There are several dependencies needed to build and work on koji_wrapper.  These
+are a result of a dependency upstream from us in the `cryptography`_ library,
+which lists the packages needed if you run into problems pip installing our
+requirements.
 
-  openssl-devel python3-devel rpm-devel krb5-devel make gcc findutils which
+.. _cryptography:  https://cryptography.io/en/latest/installation/
 
-koji_wrapper uses the upcoming standard of Pipfiles via pipenv.  This is integrated
-into our Makefile and once you have the above dependencies, you can simply run::
+koji_wrapper supports both standard python virtual environment setups and pipenv,
+which is integrated into our Makefile. To set up a pipenv-based development
+enironment, you can simply run::
 
   make dev
 
@@ -60,12 +63,15 @@ Contributions
 
 All new code should include tests that excercise the code and prove that it
 works, or fixes the bug you are trying to fix.  Any Pull Request without tests
-will not be accepted.
+will not be accepted. See CONTRIBUTING.rst for more details.
 
-Credits
--------
+Building
+********
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+If you wish to build a local package for testing at any time, you can simply
+run::
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+  make dist
+
+this will build a package with a .dev extension that you can install for testing
+and verification.

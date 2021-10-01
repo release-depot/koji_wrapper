@@ -6,9 +6,8 @@ name = "pypi"
 
 
 [packages]
-
 koji_wrapper = {path = ".", editable = true}
 
 
 [dev-packages]
-koji_wrapper  = {path = ".", extras = ["docs","test"], editable = true}
+koji_wrapper  = {path = ".", extras = ["docs","test","dist"], editable = true}
