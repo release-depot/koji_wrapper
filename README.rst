@@ -5,10 +5,14 @@ Koji Wrapper
 
 .. image:: https://img.shields.io/pypi/v/koji_wrapper.svg
         :target: https://pypi.python.org/pypi/koji_wrapper
+
 .. image::
    https://github.com/release-depot/koji_wrapper/actions/workflows/test.yml/badge.svg
    :target: `test workflow`_
 
+.. image:: https://readthedocs.org/projects/koji_wrapper/badge/?version=latest
+        :target: https://koji_wrapper.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
 
 .. _test workflow: https://github.com/release-depot/koji_wrapper/actions/workflows/test.yml
 

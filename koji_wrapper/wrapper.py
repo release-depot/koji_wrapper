@@ -45,13 +45,13 @@ class KojiWrapper(KojiWrapperBase):
     def srpm_url(self, nvr=None):
         """
         :param nvr: reference to the rpm of the desired package.
-        This may be any of:
+            This may be any of:
 
-            - int ID
-            - string N-V-R.A
-            - string N-V-R.A@location
-            - map containing 'name', 'version', 'release', and 'arch' (and
-              optionally 'location')
+        - int ID
+        - string N-V-R.A
+        - string N-V-R.A@location
+        - map containing 'name', 'version', 'release', and 'arch' (and
+          optionally 'location')
 
         :returns: srpm url for a given nvr
         """
