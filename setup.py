@@ -2,52 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """The setup script."""
+import os
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
+# Pypi will not work with the .dev scheme, so exclude that when doing
+# test builds in ci.
+def check_if_scm():
+    if os.environ.get('SCM_NO_LOCAL_SCHEME'):
+        return "no-local-version"
+    else:
+        return "node-and-date"
 
-requirements = ['koji', 'toolchest']
-
-setup_requirements = ['pytest-runner', ]
-
-test_requirements = ['pytest', 'pytest-datadir',
-                     'pytest-cov', 'tox', 'flake8']
-
-docs_requirements = ['sphinx']
 
 setup(
-    author="Jason Guiditta",
-    author_email='jason.guiditta@gmail.com',
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-    ],
-    description=("Helper library to work with areas of koji that are "
-                 "not well supported in that project's api."),
-    install_requires=requirements,
-    extras_require={'test': test_requirements,
-                    'docs': docs_requirements},
-    license="MIT license",
-    long_description=readme + '\n\n' + history,
-    include_package_data=True,
-    keywords='koji_wrapper',
-    name='koji_wrapper',
-    packages=find_packages(include=['koji_wrapper']),
-    setup_requires=setup_requirements,
-    test_suite='tests',
-    tests_require=test_requirements,
-    url='https://github.com/release-depot/koji_wrapper',
-    version='0.3.0',
-    zip_safe=False,
+    use_scm_version={'local_scheme': check_if_scm()}
 )
