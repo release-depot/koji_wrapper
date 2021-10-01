@@ -8,7 +8,7 @@ from koji_wrapper.exceptions import UnsupportedTypeException
 def convert_to_list(value):
     """
     :param value: a value to convert into a list.  Currently, this must be one
-    of [string, list, None]
+        of \\[[string, list, None\\[]
     :returns: a flat list version of the value passed in
     """
 

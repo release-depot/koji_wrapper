@@ -55,9 +55,11 @@ class KojiWrapperBase(object):
 
         This is a specific server, and there should be a config file specified
         in one of the standard locations koji looks:
-          - /etc/koji.conf
-          - /etc/koji.conf.d
-          - ~/.koji/config.d
+
+        - /etc/koji.conf
+        - /etc/koji.conf.d
+        - ~/.koji/config.d
+
         :param profile: profile name of the koji-compliant hub to use
         """
         return self.__profile
@@ -168,7 +170,7 @@ class KojiWrapperBase(object):
 
             https://pagure.io/koji/blob/master/f/hub/kojihub.py
 
-        :param **kwargs: Any valid named parameter accepted by the koji
+        :param \\*\\*kwargs: Any valid named parameter accepted by the koji
                 client method listArchives:
 
         :returns: list of archives from koji
@@ -192,7 +194,7 @@ class KojiWrapperBase(object):
 
             https://pagure.io/koji/blob/master/f/hub/kojihub.py
 
-        :param **kwargs: Any valid named parameter accepted by the koji
+        :param \\*\\*kwargs: Any valid named parameter accepted by the koji
                 client method listRPMs:
 
         :returns: list of matching rpms from koji

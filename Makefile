@@ -64,9 +64,8 @@ coverage: ## check code coverage quickly with the default Python
 	pipenv run  tox -epy
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	pipenv run sphinx-apidoc -o docs/ koji_wrapper ##TODO: remove
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
+	pipenv run $(MAKE) -C docs clean
+	pipenv run $(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes

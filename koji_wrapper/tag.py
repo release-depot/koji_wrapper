@@ -68,7 +68,7 @@ class KojiTag(KojiWrapper):
 
             https://pagure.io/koji/blob/master/f/hub/kojihub.py
 
-        :param **kwargs: Any valid named parameter accepted by the koji
+        :param \\*\\*kwargs: Any valid named parameter accepted by the koji
                 client method listTagged:
         :returns: list of matching tagged build objects from koji
         """
