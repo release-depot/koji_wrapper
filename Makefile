@@ -79,16 +79,14 @@ dist: clean ## builds source and wheel package
 	pipenv run tox -etwine
 	ls -l dist
 
-init: ## install the dev environment
+install: ## install the package to the active Python's site-packages
+	python setup.py install
+
+dev: clean ## set up a development environment
 ifndef PIPENV_AVAILABLE
 	pip3 install --user pipenv
 endif
-
-install: init ## install the package to the active Python's site-packages
-	pipenv run python setup.py install
-
-dev: init ## set up a development environment
 	pipenv install --dev
 
-reset: clean # clean out your pipenv virtualenv
+reset: clean ## clean out your pipenv virtualenv
 	pipenv uninstall --all
