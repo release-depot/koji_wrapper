@@ -36,7 +36,7 @@ requirements.
 
 koji_wrapper supports both standard python virtual environment setups and pipenv,
 which is integrated into our Makefile. To set up a pipenv-based development
-enironment, you can simply run::
+environment, you can simply run::
 
   make dev
 
