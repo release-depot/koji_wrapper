@@ -26,7 +26,7 @@ Notes
 -----
 
 This library only supports python 3. Some features may still work with python
-2.7 but not all of the syntax and features my be compatible.
+2.7 but not all of the syntax and features may be compatible.
 
 Development
 -----------
@@ -52,6 +52,8 @@ for us, which you can activate via::
 
 See the `pipenv documentation <https://docs.pipenv.org/>`_ for more detail.
 
+Alternatively, you can use a standard python virtualenv if you prefer.
+
 Documentation
 *************
 
@@ -59,8 +61,8 @@ To build the documentation on your checkout, simply run::
 
   make docs
 
-We plan to get this published in the near future, and this README will be
-updated when that happens.
+This is useful for verifying any documentation you have changed or added is
+generated correctly and looks as expected before submitting a Pull Request.
 
 Contributions
 *************
