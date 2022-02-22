@@ -156,7 +156,7 @@ class KojiWrapperBase(object):
         """
         try:
             if self.session.opts.get('authtype') == 'kerberos':
-                return self.session.krb_login()
+                return self.session.gssapi_login()
             else:
                 return self.session.ssl_login()
         except koji.AuthError as e:
