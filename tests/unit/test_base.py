@@ -56,14 +56,14 @@ def test_logs_in_w_kerberos(shared_datadir):
 
     tw = KojiWrapperBase(profile='mykoji',
                          user_config=shared_datadir / 'mykoji.conf')
-    tw.session.krb_login = MagicMock(return_value=True)
+    tw.session.gssapi_login = MagicMock(return_value=True)
     logged_in = tw.login()
     assert tw.profile == 'mykoji'
     assert logged_in is True
-    assert tw.session.krb_login.called
+    assert tw.session.gssapi_login.called
 
 
-def test_fails_krb_login_wo_ticket(shared_datadir):
+def test_fails_gssapi_login_wo_ticket(shared_datadir):
     """
     GIVEN we have a profile that has an authtype of 'kerberos'
     WHEN we try to log in with a koji client that is not kinit'ed
