@@ -84,7 +84,7 @@ def test_passes_builds_extra_args(sample_tagged_builds):
     kt = build_tag('foo')
     kt.session.listTagged = MagicMock(return_value=sample_tagged_builds)
     assert kt.builds(inherit=True) == sample_tagged_builds
-    assert kt.session.listTagged.called_with(inherit=True)
+    kt.session.listTagged.assert_called()
 
 
 def test_caches_builds(sample_tagged_builds):
