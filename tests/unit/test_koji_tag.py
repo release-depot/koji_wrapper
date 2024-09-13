@@ -84,7 +84,7 @@ def test_passes_builds_extra_args(sample_tagged_builds):
     kt = build_tag('foo')
     kt.session.listTagged = MagicMock(return_value=sample_tagged_builds)
     assert kt.builds(inherit=True) == sample_tagged_builds
-    kt.session.listTagged.assert_called()
+    kt.session.listTagged.assert_called_with('foo', inherit=True)
 
 
 def test_caches_builds(sample_tagged_builds):
@@ -143,6 +143,21 @@ def test_filters_builds_by_both(sample_tagged_builds):
     kt.session.listTagged = MagicMock(return_value=sample_tagged_builds)
     filtered = kt._filter_tagged(sample_tagged_builds)
     assert len(filtered) == 0
+
+
+def test_selects_latest_build_by_nvr(builds_for_tag):
+    """
+    GIVEN we have a KojiTag object filtered by tag and package
+    WHEN we call latest_by_nvr
+    THEN we get the build object with the latest nvr
+    """
+    kt = build_tag('some_release')
+    kt.session.listTagged = MagicMock(return_value=builds_for_tag)
+    # In real usage, this is how we would narrow down the build list for the
+    # tested use case
+    assert kt.builds(package='important-container') == builds_for_tag
+    latest = kt.latest_by_nvr()
+    assert latest['nvr'] == 'important-container-18.0.0-29'
 
 
 def test_gets_attribute_for_builds_in_list(sample_tagged_builds):
