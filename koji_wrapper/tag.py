@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ KojiTag Module """
+from toolchest.rpm.rpmvercmp import rpmvercmp
 
 from koji_wrapper.wrapper import KojiWrapper
 from koji_wrapper.validators import validate_required, validate_str_or_list
@@ -89,8 +90,23 @@ class KojiTag(KojiWrapper):
         return self.tagged_list
 
     def latest_by_nvr(self):
-        # TODO: implement/port _find_latest logic
-        pass
+        """
+        Return the build from the cached builds list (listTagged) that has the
+        greatest NVR. This uses the toolchest library to also account for
+        timestamps and other things that make the koji '--latest' flag not
+        always return the desired result.
+        """
+        greatest_nvr = None
+        for build in self.builds():
+            if greatest_nvr:
+                # Compare previously found greatest nvr with the next item in
+                # the list and only change greatest_nvr if the new item is
+                # greater.
+                if rpmvercmp(build['nvr'], greatest_nvr['nvr']) == 1:
+                    greatest_nvr = build
+            else:
+                greatest_nvr = build
+        return greatest_nvr
 
     def builds_by_attribute(self, attribute):
         """

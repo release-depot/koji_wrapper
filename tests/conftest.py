@@ -2,6 +2,13 @@
 
 import pytest
 
+import koji_wrapper.test_support.sample_data as test_data
+
+
+@pytest.fixture()
+def builds_for_tag():
+    yield test_data.package_builds_by_tag
+
 
 @pytest.fixture()
 def sample_build():
